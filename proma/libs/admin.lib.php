@@ -242,11 +242,9 @@ function change($userid)
 		<th class="thv">Closed</th>
 		<td><input type="checkbox" name="closed" <?php print $closed_s; ?> /></td>
 	</tr>
-	<tr>
-		<th></th>
-		<td><input type="submit" name="submit" value="Change" /></td>
-	</tr>
 </table>
+
+<p><input type="submit" name="submit" value="Change" /></p>
 
 </form>
 
