@@ -108,7 +108,7 @@ else {
   <tr>
     <th class="thv">Password</th>
     <td><input type="password" name="new_passwd1" />
-      Only required if chaning password</td>
+      Only required if changing password</td>
   </tr>
 
   <tr>
