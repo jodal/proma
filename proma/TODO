@@ -7,3 +7,4 @@ TODO
 
 * Support for quotas ?
 * Sort userlist on different columns
+* Support for log stats (logging to DB)
