@@ -80,12 +80,48 @@ else {
 <input type="hidden" name="submit" value="1" />
 
 <table>
-  <tr><th class="thv">Old userid</th>     <td><input type="text" name="old_userid" /> Required</td></tr>
-  <tr><th class="thv">Old password</th>   <td><input type="password" name="old_passwd" /> Required</td></tr>
-  <tr><th class="thv">New userid</th>     <td><input type="text" name="new_userid" /> Leave blank if you wont change</td></tr>
-  <tr><th class="thv">New password</th>   <td><input type="password" name="new_passwd1" /> Leave blank if you wont change</td></tr>
-  <tr><th class="thv">New password</th>   <td><input type="password" name="new_passwd2" /> Again</td></tr>
-  <tr><th></th>                           <td><input type="submit" value="Change" /></td></tr>
+
+  <tr>
+    <th class="thh" colspan="2">Old information</th>
+  </tr>
+
+  <tr>
+    <th class="thv">Userid</th>
+    <td><input type="text" name="old_userid" /> Required</td>
+  </tr>
+
+  <tr>
+    <th class="thv">Password</th>
+    <td><input type="password" name="old_passwd" /> Required</td>
+  </tr>
+
+  <tr>
+    <th class="thh" colspan="2">New information</th>
+  </tr>
+
+  <tr>
+    <th class="thv">New userid</th>
+    <td><input type="text" name="new_userid" />
+      Only required if changing userid</td>
+  </tr>
+
+  <tr>
+    <th class="thv">New password</th>
+    <td><input type="password" name="new_passwd1" />
+      Only required if chaning password</td>
+  </tr>
+
+  <tr>
+    <th class="thv">New password</th>
+    <td><input type="password" name="new_passwd2" />
+      Repeat password if changing</td>
+  </tr>
+  
+  <tr>
+    <th></th>
+    <td><input type="submit" value="Change" /></td>
+  </tr>
+
 </table>
 
 </form>

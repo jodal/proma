@@ -99,7 +99,7 @@ else
 <hr />
 
 <p class="bottom">
-<a href="http://www.jodal.no/projects/proma/">ProMA 0.8 (ProFTPd MySQL Admin)</a><br />
+<a href="http://www.jodal.no/projects/proma/">ProMA 0.8.1 (ProFTPd MySQL Admin)</a><br />
 Copyright &copy; 2002-2003 <a href="http://www.jodal.no/">Stein Magnus Jodal</a>. All rights reserved.<br />
 Distributed under the GNU General Public License.
 </p>

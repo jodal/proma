@@ -119,9 +119,12 @@ You can add more admins once you're logged into the admin section.
 
 3. PROMA CONFIGURATION
 ----------------------
-Copy 'config.inc.php-example' to 'config.inc.php' and edit it to
-fit your setup and needs. There are more instructions in the
-configuration file.
+Copy 'config.inc.php-example' to 'config.inc.php' and edit it to fit your
+setup and needs. There are more instructions in the configuration file.
+
+'config.inc.php' should not be world readable because it carries the password
+to the MySQL database. For example, it is recommended (on a Debian system) to
+run 'chgrp www-data config.inc.php' and 'chmod 640 config.inc.php'.
 
 
 4. ENJOY

@@ -35,17 +35,6 @@ function list_users() {
   if ($num_rows > 0) {
     print "<table>\n";
     print "  <tr>\n";
-    print "   <th class=\"thh\">Legend</th>\n";
-    print "   <td class=\"admin\">Admin</td>\n";
-    print "   <td class=\"closed\">New/Closed</td>\n";
-    print "   <td class=\"note\">Note</td>\n";
-    print "  </tr>\n";
-    print "</table>\n\n";
-
-    print "<br />\n\n";
-
-    print "<table>\n";
-    print "  <tr>\n";
     print "    <th class=\"thh\">Username</th>\n";
     print "    <th class=\"thh\">Name</th>\n";
     print "    <th class=\"thh\">Mail</th>\n";
@@ -85,6 +74,17 @@ function list_users() {
     }
 
     print "</table>\n\n";
+
+    print "<br />\n\n";
+
+    print "<table>\n";
+    print "  <tr>\n";
+    print "   <th class=\"thh\">Legend</th>\n";
+    print "   <td class=\"admin\">Admin</td>\n";
+    print "   <td class=\"closed\">New/Closed</td>\n";
+    print "   <td class=\"note\">Note</td>\n";
+    print "  </tr>\n";
+    print "</table>\n\n";
   } else {
     print "<p>No users.</p>";
   }
@@ -104,13 +104,15 @@ function change($userid) {
     $new_passwd1 = addslashes($HTTP_POST_VARS[new_passwd1]);
     $new_passwd2 = addslashes($HTTP_POST_VARS[new_passwd2]);
     $new_note    = addslashes($HTTP_POST_VARS[note]);
+
     if ($HTTP_POST_VARS[admin] == "on")
       $new_admin = 1;
-    else
+    if ($HTTP_POST_VARS[admin] == "off")
       $new_admin = 0;
+
     if ($HTTP_POST_VARS[closed] == "on")
       closed($userid, 1);
-    else
+    if ($HTTP_POST_VARS[closed] == "off")
       closed($userid, 0);
 
     if ($new_userid == "" || $new_passwd1 != $new_passwd2) {
