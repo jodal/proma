@@ -129,7 +129,7 @@ if (file_exists($filename)) {
 ?>
 
 <p class="bottom">
-<a href="http://proma.sourceforge.net/">ProMA 0.9.0-cvs</a> &#149;
+<a href="http://proma.sourceforge.net/">ProMA 0.8.2</a> &#149;
 Copyright &copy; 2002-2004 <a href="http://www.jodal.no/">Stein Magnus Jodal</a>. All rights reserved. &#149;
 Distributed under the GNU General Public License.
 </p>

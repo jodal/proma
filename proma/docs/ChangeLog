@@ -2,6 +2,11 @@
 # Copyright (C) 2002-2004 Stein Magnus Jodal. Distributed under the GPL.
 # $Id$
 
+* 2004-07-26 Stein Magnus Jodal <stein.magnus@jodal.no>
+  Reduced text size in lists.
+  Updated about text in 'docs/README'.
+  Released version 0.8.2.
+
 * 2004-07-15 Stein Magnus Jodal <stein.magnus@jodal.no>
   Updated footnote text.
   Estetic changes to the stylesheet.

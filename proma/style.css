@@ -29,6 +29,10 @@ img {
 	border: none;
 }
 
+td {
+	font-size: smaller;
+}
+
 /* Inline Elements */
 
 a {
@@ -42,13 +46,13 @@ a:hover {
 
 /* Classes */
 
-.tdb {
+tr .tdb {
 	border-bottom: 1px solid gray;
 	border-right: 1px solid gray;
 	padding: 0.2em;
 }
 
-.thv {
+tr .thv {
 	background: #ddd;
 	border-bottom: 1px solid gray;
 	border-right: 1px solid gray;
@@ -58,7 +62,7 @@ a:hover {
 	vertical-align: top;
 }
 
-.thh {
+tr .thh {
 	background: #ddd;
 	border-bottom: 1px solid gray;
 	border-right: 1px solid gray;

@@ -4,9 +4,18 @@ $Id$
 
 ABOUT
 -----
-ProMA is a PHP based system for administrating a ProFTPd server
-storing users in a MySQL database.
+ProMA is a PHP4 based system for administrating a ProFTPd server storing users
+in a MySQL database. Features include support for multiple administrators, mail
+notifiers when new users register and when accounts are approved, closing of
+accounts temporarily, without deleting it or wiping out the password, and a
+notepad per user for the admins.
 
+The name ProMA comes from ProFTPd MySQL Admin, but are going to be kept even
+though support for PostgreSQL are planned. The first public version was 0.6.0,
+released at 2002-02-02. ProMA is written and maintained by Stein Magnus Jodal.
+Patches and increased development from ProMA's users are encouraged.
+
+The ProMA Projects website can be found at http://proma.sourceforge.net/
 
 CREDITS
 -------
@@ -18,13 +27,10 @@ ProFTPd and MySQL for their effort.
 
 REQUIREMENTS
 ------------
-- Webserver, with
-- PHP4, with
-- MySQL support
-- ProFTPd server with mod_sql and mod_sql_mysql 4.xx configured
-  to find users in a
-- MySQL database
-
+- Webserver (tested with Apache 1.3.29)
+- PHP4 with MySQL support (tested with 4.3.4, should work with >=4.1.0)
+- MySQL (tested with 4.0.18, should work with 3.x and 4.x)
+- ProFTPd (tested with 1.2.9) server with mod_sql and mod_sql_mysql
 
 CHANGES
 -------
