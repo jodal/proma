@@ -100,19 +100,19 @@ else {
   </tr>
 
   <tr>
-    <th class="thv">New userid</th>
+    <th class="thv">Userid</th>
     <td><input type="text" name="new_userid" />
       Only required if changing userid</td>
   </tr>
 
   <tr>
-    <th class="thv">New password</th>
+    <th class="thv">Password</th>
     <td><input type="password" name="new_passwd1" />
       Only required if chaning password</td>
   </tr>
 
   <tr>
-    <th class="thv">New password</th>
+    <th class="thv">Password</th>
     <td><input type="password" name="new_passwd2" />
       Repeat password if changing</td>
   </tr>
