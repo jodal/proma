@@ -12,6 +12,7 @@
   Merged name and mail fields in user list.
   Added title-attribute with notes to the user list, so you can see the start
     of the note by pointing at the specific users row.
+  Moved docs to the new subdir 'docs'.
 
 * 2004-07-08 Stein Magnus Jodal <stein.magnus@jodal.no>
   Added support for setting homedir per user.
@@ -21,7 +22,7 @@
   Fixed typo in the new user mail.
 
 * 2004-06-12 Stein Magnus Jodal <stein.magnus@jodal.no>
-  Fixed typo in change.inc.php.
+  Fixed typo in 'change.inc.php'.
 
 * 2004-02-13 Stein Magnus Jodal <stein.magnus@jodal.no>
   Added check for 'config.inc.php' in 'index.php'.
