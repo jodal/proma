@@ -2,7 +2,7 @@
 # Copyright (C) 2002-2003 Stein Magnus Jodal. Distributed under the GPL.
 # $Id$
 
-* 2003-08-23 Stein Magnus Jodal <stein.magnus@jodal.no>
+* 2003-11-25 Stein Magnus Jodal <stein.magnus@jodal.no>
   Fixed bug in libs/admin.lib.php. Thanks to Ben Lentz
     <blentz@channing-bete.com>.
   Added more info about 'config.inc.php' in INSTALL.
