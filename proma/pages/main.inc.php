@@ -17,7 +17,7 @@
 
 <?php
 
-$query = "SELECT COUNT(userid), SUM(count) FROM $table_users";
+$query = "SELECT COUNT($users_userid), SUM($users_count) FROM $table_users";
 $result = mysql_query($query) or die("Failed to query database.");
 
 if ($result) {
