@@ -9,83 +9,95 @@
  * $Id$
  */
 
-/* Elements */
+/* Block Elements */
 
 body {
-  background: white;
-  color: black;
-  font-family: Arial, Sans-serif;
-  font-size: 10pt;
+	background: white;
+	color: black;
+	font-family: Verdana, Arial, Sans-serif;
+	font-size: smaller;
+}
+
+h1 {
+	font-weight: normal;
+}
+h2 {
+	font-weight: normal;
 }
 
 img {
-  border: none;
+	border: none;
 }
 
-hr {
-  height: 1px;
-}
+/* Inline Elements */
 
 a {
-  background: transparent;
-  color: #483D8B;
-  text-decoration: none;
+	background: transparent;
+	color: navy;
+	text-decoration: none;
 }
 a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 /* Classes */
 
 .tdb {
-  border-bottom: 1px solid gray;
-  border-right: 1px solid gray;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	padding: 0.2em;
 }
 
 .thv {
-  background: #b2b2b2;
-  color: black;
-  text-align: right;
-  vertical-align: top;
-  padding: 2px;
-  border-bottom: 1px solid gray;
-  border-right: 1px solid gray;
+	background: #ddd;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	color: black;
+	padding: 0.2em;
+	text-align: right;
+	vertical-align: top;
 }
 
 .thh {
-  background: #b2b2b2;
-  color: black;
-  padding: 2px;
-  text-align: left;
-  border-bottom: 1px solid gray;
-  border-right: 1px solid gray;
+	background: #ddd;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	color: black;
+	padding: 0.2em;
+	text-align: left;
 }
 
 .menu {
-  font-weight: bolder;
+	background: #ddd;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	padding: 0.2em;
+}
+.menu a {
+	font-weight: bolder;
 }
 
 .bottom {
-  font-size: 8pt;
+	border-top: 1px solid black;
+	font-size: smaller;
+	padding-top: 0.3em;
 }
 
 .admin {
-  background: #00b235;
-  color: black;
+	background: #0d3;
+	color: black;
 }
-
 .closed {
-  background: #ff5b5b;
-  color: black;
+	background: #f77;
+	color: black;
 }
-
 .note {
-  background: #75b0ff;
-  color: black;
+	background: #7bf;
+	color: black;
 }
 
 .message {
-  background: transparent;
-  color: red;
-  font-weight: bolder;
+	background: transparent;
+	color: red;
+	font-weight: bolder;
 }

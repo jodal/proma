@@ -17,6 +17,8 @@ function list_users()
 
 	global $users_userid, $users_name, $users_mail, $users_homedir, $users_note, $users_count, $users_admin, $users_closed, $table_users;
 
+	print "<h3>User List</h3>\n\n";
+
 	$query = "SELECT
 		$users_userid,
 		$users_name,
@@ -36,39 +38,43 @@ function list_users()
 	$num_rows = mysql_num_rows($result);
 
 	if ($num_rows > 0) {
-		print "<table>\n\n";
+		print "<table>\n";
 		print "<tr>\n";
 		print "		<th class=\"thh\">Username</th>\n";
-		print "		<th class=\"thh\">Name</th>\n";
-		print "		<th class=\"thh\">Mail</th>\n";
+		print "		<th class=\"thh\">Name (mail)</th>\n";
 		print "		<th class=\"thh\">Homedir</th>\n";
 		print "		<th class=\"thh\">Logins</th>\n";
 		print "		<th class=\"thh\" colspan=\"3\">Action</th>\n";
-		print "</tr>\n\n";
+		print "</tr>\n";
 
 		while ($row = mysql_fetch_assoc($result)) {
 			$userid		= stripslashes($row[$users_userid]);
 			$name		= stripslashes($row[$users_name]);
 			$mail		= stripslashes($row[$users_mail]);
 			$homedir	= stripslashes($row[$users_homedir]);
-			$note		= !empty($row[$users_note]);
+			$note		= stripslashes($row[$users_note]);
 			$count		= stripslashes($row[$users_count]);
 			$admin		= $row[$users_admin];
 			$closed		= $row[$users_closed];
 
+			if (!empty($note)) {
+				$note_attr = " title=\"$note\"";
+			} else {
+				$note_attr = "";
+			}
+
 			if ($closed == 1) {
-				print "<tr class=\"closed\">\n";
+				print "<tr class=\"closed\"$note_attr>\n";
 			} elseif ($admin == 1) {
-				print "<tr class=\"admin\">\n";
-			} elseif ($note == 1) {
-				print "<tr class=\"note\">\n";
+				print "<tr class=\"admin\"$note_attr>\n";
+			} elseif (!empty($note)) {
+				print "<tr class=\"note\"$note_attr>\n";
 			} else {
 				print "<tr>\n";
 			}
 
 			print "		<td>$userid</td>\n";
-			print "		<td>$name</td>\n";
-			print "		<td><a href=\"mailto:$mail\">$mail</a></td>\n";
+			print "		<td><a href=\"mailto:$mail\">$name</a></td>\n";
 			print "		<td>$homedir</td>\n";
 			print "		<td align=\"right\">$count</td>\n";
 			print "		<td><a href=\"?page=admin&amp;action=change&amp;id=$userid\">Change</a></td>\n";
@@ -80,20 +86,20 @@ function list_users()
 			}
 
 			print "		<td><a href=\"?page=admin&amp;action=delete&amp;id=$userid\">Delete</a></td>\n";
-			print "</tr>\n\n";
+			print "</tr>\n";
 		}
 
 		print "</table>\n\n";
 
 		print "<br />\n\n";
 
-		print "<table>\n\n";
+		print "<table>\n";
 		print "<tr>\n";
-		print "	<th class=\"thh\">Legend</th>\n";
+		print "	<th class=\"thh\">Legend:</th>\n";
 		print "	<td class=\"admin\">Admin</td>\n";
 		print "	<td class=\"closed\">New/Closed</td>\n";
 		print "	<td class=\"note\">Note</td>\n";
-		print "</tr>\n\n";
+		print "</tr>\n";
 		print "</table>\n\n";
 	} else {
 		print "<p>No users.</p>\n\n";
@@ -105,6 +111,8 @@ function change($userid)
 // Change user details
 
 	global $HTTP_POST_VARS, $link, $table_users, $users_userid, $users_name, $users_mail, $users_passwd, $users_homedir, $users_note, $users_count, $users_admin, $users_closed;
+
+	print "<h3>Change Account</h3>\n\n";
 
 	if ($HTTP_POST_VARS["submit"]) {
 	// The change form is submitted and should be processed
@@ -278,14 +286,21 @@ function closed($userid, $closed)
 
 	if (mysql_affected_rows($link) > 0) {
 		if ($closed) {
+			print "<h3>Close Account</h3>\n\n";
+
 			print "<p>The useraccount \"$userid\" was closed.</p>\n";
 		} else {
+			print "<h3>Open Account</h3>\n\n";
+
 			print "<p>The useraccount \"$userid\" was opened.</p>\n";
 
 			if ($mail_notify_account_open) {
 				mail($mail,
 				"ProMA - $info_host - Account opened",
-				"Your account at $info_host with username \"$userid\" has been opened.\n\n-- \nProMA at $info_host",
+"Your account at $info_host with username \"$userid\" has been opened.
+
+-- 
+ProMA at $info_host",
 				"From: $mail_from\n"
 				."X-Mailer: PHP/" . phpversion());
 			}
@@ -298,6 +313,8 @@ function delete($userid)
 // Deletes users after a confirmation 
 
 	global $HTTP_POST_VARS, $table_users, $users_userid;
+
+	print "<h3>Delete Account</h3>\n\n";
 
 	if ($HTTP_POST_VARS[delete] == "Yes") {
 	// Delete the user if confirmed

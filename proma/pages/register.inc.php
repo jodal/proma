@@ -7,84 +7,110 @@
  * Read 'COPYING' for further information.
  */
 
-/* ProMA Register Processing Page
+/* ProMA Register Account Page
  * $Id$
  */
 
 ?>
 
-<h2>Register new account</h2>
+<h2>Register Account</h2>
 
 <?php
 
-if ($HTTP_POST_VARS["submit"] == 1) {
+if (!empty($HTTP_POST_VARS["submit"])) {
 // If the register form is submitted and should be processed
 
-$passwd1  = addslashes($HTTP_POST_VARS[passwd1]);
-$passwd2  = addslashes($HTTP_POST_VARS[passwd2]);
-$userid   = addslashes($HTTP_POST_VARS[userid]);
-$name     = addslashes($HTTP_POST_VARS[name]);
-$mail     = addslashes($HTTP_POST_VARS[mail]);
+$passwd1	= addslashes($HTTP_POST_VARS[passwd1]);
+$passwd2	= addslashes($HTTP_POST_VARS[passwd2]);
+$userid		= addslashes($HTTP_POST_VARS[userid]);
+$name		= addslashes($HTTP_POST_VARS[name]);
+$mail		= addslashes($HTTP_POST_VARS[mail]);
 
-if ($userid == "" || $passwd1 == "")
-  print "<p>Username or password is empty. <a href=\"?page=register\">Try again</a></p>\n";
+if ($userid == "" || $passwd1 == "") {
+	print "<p>Username or password is empty. <a href=\"?page=register\">Try again</a></p>\n";
+} elseif ($passwd1 != $passwd2) {
+	print "<p>The passwords are not identical. <a href=\"?page=register\">Try again</a></p>\n";
+} else {
+	$query = "SELECT
+			PASSWORD('$passwd1')";
+	$result = mysql_query($query) or die("Database query failed.");
 
-elseif ($passwd1 != $passwd2)
-  print "<p>The passwords are not identical. <a href=\"?page=register\">Try again</a></p>\n";
+	$enc_passwd = mysql_fetch_array($result);
+	// rot13 on the encrypted password disables access, and can be reversed to
+	// open for access again. A bit dirty, but it works.
+	$rot13_passwd = rot13($enc_passwd[0]);
 
-else {
-  $query = "SELECT
-              PASSWORD('$passwd1')";
-  $result = mysql_query($query) or die("Database query failed.");
-  $enc_passwd = mysql_fetch_array($result);
-  // rot13 on the encrypted password disables access, and can be reversed to
-  // open for access again. A bit dirty, but it works.
-  $rot13_passwd = rot13($enc_passwd[0]);
+	$query = "INSERT INTO
+		 	$table_users
+		SET
+			$users_userid	= '$userid',
+			$users_name	= '$name',
+			$users_mail	= '$mail',
+			$users_uid	= '$users_uid_default',
+			$users_gid	= '$users_gid_default',
+			$users_passwd	= '$rot13_passwd',
+			$users_shell	= '$users_shell_default',
+			$users_homedir	= '$users_homedir_default',
+			$users_count	= 0,
+			$users_admin	= 0,
+			$users_closed	= 1";
+	$result = mysql_query($query) or die("Database query failed.");
 
-  $query = "INSERT INTO
-              $table_users                                                                  SET
-              $users_userid  = '$userid',                                                     $users_name    = '$name',
-              $users_mail    = '$mail',
-              $users_uid     = '$users_uid_default',
-              $users_gid     = '$users_gid_default',
-              $users_passwd  = '$rot13_passwd',
-              $users_shell   = '$users_shell_default',
-              $users_homedir = '$users_homedir_default',
-              $users_count   = 0,
-              $users_admin   = 0,
-              $users_closed  = 1";
-  $result = mysql_query($query) or die("Database query failed.");
+	if ($mail_notify_new_user) {
+		mail(admin_mail(),
+			"ProMA - $info_host - New user",
+"A new user has registered and is waiting for your authorization.
 
-  if ($mail_notify_new_user) {
-    mail(admin_mail(),
-      "ProMA - $info_host - New user",
-      "A new user has registered and is waiting for your authorization.\n\nUsername: $userid\nName: $name\nMail: $mail\n\n-- \nProMA at $info_host",
-      "From: $mail_from\n"
-      ."X-Mailer: PHP/" . phpversion());
-  }
+Username: $userid
+Name: $name
+Mail: $mail
 
-  print "<p>You are registered. When an admin accepts your registration, you can connect using the information on the main page.</p>";
+-- 
+ProMA at $info_host",
+			"From: $mail_from\n"
+			."X-Mailer: PHP/" . phpversion());
+	}
+
+	print "<p>You are registered. When an admin accepts your registration, you can connect using the information on the main page.</p>";
 }
 
 } else {
 // If the register form is not submitted, print it
 
-if ($policy != "") {
-  print "<p>$policy</p>";
-}
 ?>
 
 <form action="?page=register" method="post">
-<input type="hidden" name="submit" value="1" />
 
 <table>
-  <tr><th class="thv">Username</th>   <td><input type="text" name="userid" /> Your login</td></tr>
-  <tr><th class="thv">Name</th>     <td><input type="text" name="name" /> Your full real name</td></tr>
-  <tr><th class="thv">Mail</th>     <td><input type="text" name="mail" /> Your mail adress</td></tr>
-  <tr><th class="thv">Password</th> <td><input type="password" name="passwd1" /></td></tr>
-  <tr><th class="thv">Password</th> <td><input type="password" name="passwd2" /> And again</td></tr>
-  <tr><th></th>                     <td><input type="submit" value="Register" /></td></tr>
+	<tr>
+		<th class="thv">Username</th>
+		<td><input type="text" name="userid" /> Your login</td>
+	</tr>
+	<tr>
+		<th class="thv">Name</th>
+		<td><input type="text" name="name" /> Your full real name</td>
+	</tr>
+	<tr>
+		<th class="thv">Mail</th>
+		<td><input type="text" name="mail" /> Your mail adress</td>
+	</tr>
+	<tr>
+		<th class="thv">Password</th>
+		<td><input type="password" name="passwd1" /></td>
+	</tr>
+	<tr>
+		<th class="thv">Password</th>
+		<td><input type="password" name="passwd2" /> And again</td>
+	</tr>
 </table>
+
+<?php
+if (!empty($policy)) {
+	print "<p>$policy</p>\n";
+}
+?>
+	
+<p><input type="submit" name="submit" value="Register" /></p>
 
 </form>
 

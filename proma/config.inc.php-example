@@ -55,15 +55,16 @@ $info_limits  = "10 connections<br />2 per host";
 
 // MRTG traffic stats
 // Go to http://freshmeat.net/projects/mrtg/ for more information.
+// It should also work nice with other graph stats, like RRD or Munin.
 $mrtg_enable  = false; // true or false 
 $mrtg_link    = "/mrtg/eth0.html"; // Comment out or empty to disable the link
 $mrtg_image   = "/mrtg/images/eth0-day.png";
 
 // Policy for the register page
 // Comment out or empty if none
-$policy = "If you don't fill in you real name and mail address your account will be deleted.
-          <br />I want to know who you are when you do something you should not have done.
-          <br />Also, you are not very likely to be accepted if I don't know you.";
+$policy = "If you don't fill in you real name and mail address your account will be deleted.<br />
+I want to know who you are when you do something you should not have done.<br />
+Also, you are not very likely to be accepted if I don't know you.";
 
 /* --- MAIL */
 

@@ -2,6 +2,17 @@
 # Copyright (C) 2002-2003 Stein Magnus Jodal. Distributed under the GPL.
 # $Id$
 
+* 2004-07-15 Stein Magnus Jodal <stein.magnus@jodal.no>
+  Updated footnote text.
+  Estetic changes to the stylesheet.
+  Fixed tab indentation in all files.
+  Cleaned up the forms and tables.
+  Removed size on MRTG img-tag, so it will work well with other traffic
+    graphs like RRD or Munin.
+  Merged name and mail fields in user list.
+  Added title-attribute with notes to the user list, so you can see the start
+    of the note by pointing at the specific users row.
+
 * 2004-07-08 Stein Magnus Jodal <stein.magnus@jodal.no>
   Added support for setting homedir per user.
   Fixed priority on userlist colors.
