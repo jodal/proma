@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -20,7 +20,7 @@
 if ($runlevel == 1) {
 // If logged in and everything is well, give full access
 
-  print "<p>
+  print "<p class=\"menu\">
 <a href=\"?page=admin\">Userlist</a> |
 <a href=\"?page=admin&amp;action=logout\">Logout</a>
 </p>\n";
@@ -38,13 +38,15 @@ if ($runlevel == 1) {
       change($id);
       break;
     case "delete":
-      delete($id, NULL);
+      delete($id);
       break;
-    case "delete_new":
-      delete($id, "new");
+    case "open":
+      closed($id, 0);
+      break;
+    case "close":
+      closed($id, 1);
       break;
     default:
-      list_new_users();
       list_users();
   }
 
@@ -56,7 +58,7 @@ if ($runlevel == 1) {
 <input type="hidden" name="login" value="1" />
 
 <table>
-  <tr><th class="thv">Userid</th>   <td><input type="text" name="userid" /></td></tr>
+  <tr><th class="thv">Username</th>   <td><input type="text" name="userid" /></td></tr>
   <tr><th class="thv">Password</th> <td><input type="password" name="passwd" /></td></tr>
   <tr><th></th>                     <td><input type="submit" value="Login" /></td></tr>
 </table>

@@ -1,4 +1,4 @@
-ProMA - ProFTPd MySQL Admin
+ProMA (ProFTPd MySQL Admin)
 ===========================
 $Id$
 
@@ -12,8 +12,7 @@ CONTENTS
 1.   ProFTPd and MySQL
 2.   Database setup
 2.1. 'users' table
-2.2. 'newusers' table
-2.3. Create an admin
+2.2. Create an admin
 3.   ProMA configuration
 4.   Enjoy
 
@@ -72,11 +71,12 @@ mail            text    Y     Y       Y       user's mail address
 note            text    N     Y       Y       note about user
 count           num     N     Y       Y       user's login counter
 admin           num     N     Y       Y       user's admin status
+closed          num     N     Y       Y       account closed/open
 
 You can create this table with this query:
 
 CREATE TABLE users (
-  userid varchar(255) NOT NULL,
+  userid varchar(255) NOT NULL UNIQUE,
   name varchar(255) NULL,
   mail varchar(255) NULL,
   uid int(11) NULL default '65534',
@@ -84,26 +84,13 @@ CREATE TABLE users (
   passwd varchar(255) NOT NULL,
   shell varchar(255) NOT NULL default '/bin/nonexistent',
   homedir varchar(255) NOT NULL default '/some/fancy/homedir',
-  note text() NULL default '',
+  note text NULL default '',
   count int(11) NOT NULL default 0,
-  admin int(1) NOT NULL default 0
+  admin int(1) NOT NULL default 0,
+  closed int(1) NOT NULL default 0
 );
 
-
-2.2 'newusers' table
---------------------
-Additionally ProMA uses a 'newuser' table for users who have not yet been
-approved by an admin. It's like a small 'users' table.
-
-CREATE TABLE newusers (
-  userid varchar(255) NOT NULL,
-  name varchar(255) NULL,
-  mail varchar(255) NULL,
-  passwd varchar(255) NOT NULL
-);
-
-
-2.3 Make an admin
+2.2 Make an admin
 -----------------
 Admin status is required for using the admin section of ProMA.
 Thus, you need at least one initial admin:
@@ -112,9 +99,9 @@ INSERT INTO
   users
 SET
   userid = 'my_account_name',
-  passwd = PASSWORD('my_l33t_password'),
+  passwd = PASSWORD('my_password'),
   name = 'The Boss',
-  mail = 'boss@l33t.ftp',
+  mail = 'boss@my.ftp',
   admin = 1;
 
 Or, if you already have an existing user you want to upgrade to

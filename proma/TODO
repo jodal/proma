@@ -1,11 +1,9 @@
-ProMA - ProFTPd MySQL Admin
+ProMA (ProFTPd MySQL Admin)
 ===========================
 $Id$
 
 TODO
 ====
 
-* Mail confirmations and reminders.
 * Support for quotas ?
-* Merge 'users' and 'newusers' if mod_sql gets the feature I requested.
-* And of course something more which I can't remember at the moment. 
+* Sort userlist on different columns

@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.

@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -35,20 +35,20 @@ if (!$num_logins > 0)
 ?>
 
 <table>
-  <tr><th class="thv">Host</th>    <td><?php print $info_host; ?></td></tr>
-  <tr><th class="thv">Port</th>    <td><?php print $info_port; ?></td></tr>
-  <tr><th class="thv">Passive</th> <td><?php print $info_passive; ?></td></tr>
-  <tr><th class="thv">Login</th>   <td><?php print $info_login; ?></td></tr>
-  <tr><th class="thv">Limits</th>  <td><?php print $info_limits; ?></td></tr>
+  <tr><th class="thv">Host</th>    <td class="tdb"><?php print $info_host; ?></td></tr>
+  <tr><th class="thv">Port</th>    <td class="tdb"><?php print $info_port; ?></td></tr>
+  <tr><th class="thv">Passive</th> <td class="tdb"><?php print $info_passive; ?></td></tr>
+  <tr><th class="thv">Login</th>   <td class="tdb"><?php print $info_login; ?></td></tr>
+  <tr><th class="thv">Limits</th>  <td class="tdb"><?php print $info_limits; ?></td></tr>
 </table>
 
 <h2>Statistics</h2>
 
 <table>
-  <tr><th class="thv">Size</th>    <td><?php print $info_size; ?></td></tr>
-  <tr><th class="thv">Speed</th>   <td><?php print $info_speed; ?></td></tr>
-  <tr><th class="thv">Users</th>   <td><?php print $num_users; ?></td></tr>
-  <tr><th class="thv">Logins</th>  <td><?php print $num_logins; ?></td></tr>
+  <tr><th class="thv">Size</th>    <td class="tdb"><?php print $info_size; ?></td></tr>
+  <tr><th class="thv">Speed</th>   <td class="tdb"><?php print $info_speed; ?></td></tr>
+  <tr><th class="thv">Users</th>   <td class="tdb"><?php print $num_users; ?></td></tr>
+  <tr><th class="thv">Logins</th>  <td class="tdb"><?php print $num_logins; ?></td></tr>
 </table>
 
 <?php

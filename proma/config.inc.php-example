@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -21,7 +21,6 @@ $db_name     = "proftpd"; // Database name
 
 // Database tables
 $table_users    = "users"; // The table ProFTPd's mod_sql_mysql checks logins against
-$table_newusers = "newusers"; // The table unapproved users are stored in until an admin approves them
 $table_groups   = "groups"; // Not used
 
 // Usertable structure
@@ -41,6 +40,7 @@ $users_homedir_default = "/some/fancy/homedir";
 $users_note            = "note";
 $users_count           = "count";
 $users_admin           = "admin";
+$users_closed          = "closed";
 
 /* --- INFO */
 
@@ -56,13 +56,24 @@ $info_limits  = "10 connections<br />2 per host";
 // MRTG traffic stats
 // Go to http://freshmeat.net/projects/mrtg/ for more information.
 $mrtg_enable  = false; // true or false 
-$mrtg_link    = "/mrtg/"; // Comment out or empty to disable the link
-$mrtg_image   = "/mrtg/images/eth1-day.png";
+$mrtg_link    = "/mrtg/eth0.html"; // Comment out or empty to disable the link
+$mrtg_image   = "/mrtg/images/eth0-day.png";
 
 // Policy for the register page
 // Comment out or empty if none
 $policy = "If you don't fill in you real name and mail address your account will be deleted.
           <br />I want to know who you are when you do something you should not have done.
           <br />Also, you are not very likely to be accepted if I don't know you.";
+
+/* --- MAIL */
+
+// This only works if the mail-part of your php.ini is correct.
+
+// Sender address
+$mail_from = "noreply@" . $info_host; // Default: noreply@servername
+// Notify admins when new users register
+$mail_notify_new_user = true; // true or false
+// Send mail to users when their account are opened
+$mail_notify_account_open = true; // true or false
 
 ?>

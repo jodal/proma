@@ -1,6 +1,16 @@
 # ChangeLog for ProMA (ProFTPd MySQL Admin)
-# Copyright (C) 2002 Stein Magnus Jodal. Distributed under the GPL.
+# Copyright (C) 2002-2003 Stein Magnus Jodal. Distributed under the GPL.
 # $Id$
+
+* 2003-08-23 Stein Magnus Jodal <stein.magnus@jodal.no>
+  Changed the font sizes and table look a bit.
+  Fixed a bug in INSTALL. Thanks to Mark A. Miller <mamiller@ualr.edu>.
+  Added the server name to the web page headers. 
+  Added a new field to 'users', which made the 'newusers' table obsolete.
+  Added code to use this new field, including support for closing accounts.
+  Removed code spesific to the 'newusers' table.
+  Updated the copyrights to include 2003.
+  Added mail notifiers.
 
 * 2002-09-19 Stein Magnus Jodal <stein.magnus@jodal.no>
   Fixed a bug in pages/main.inc.php. Thanks to Daniel Perez.

@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -15,6 +15,7 @@
 require("config.inc.php");
 require("libs/auth.lib.php");
 require("libs/admin.lib.php");
+require("libs/common.lib.php");
 
 // Database
 $link = mysql_connect($db_host, $db_user, $db_password);
@@ -65,15 +66,15 @@ if ($page == "admin") {
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-  <title>ProMA - ProFTPd MySQL Admin</title>
+  <title>ProMA - <?php print $info_host; ?></title>
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
 
-<h1>ProMA - ProFTPd MySQL Admin</h1>
+<h1>ProMA - <?php print $info_host; ?></h1>
 
-<p>
+<p class="menu">
 <a href="?page=main">Main</a> |
 <a href="?page=register">Register</a> |
 <a href="?page=change">Change</a> |
@@ -98,8 +99,8 @@ else
 <hr />
 
 <p class="bottom">
-<a href="http://freshmeat.net/projects/proma">ProMA - ProFTPd MySQL Admin 0.7.3</a><br />
-Copyright &copy; 2002 <a href="http://www.jodal.no/">Stein Magnus Jodal</a>. All rights reserved.<br />
+<a href="http://www.jodal.no/projects/proma/">ProMA 0.8 (ProFTPd MySQL Admin)</a><br />
+Copyright &copy; 2002-2003 <a href="http://www.jodal.no/">Stein Magnus Jodal</a>. All rights reserved.<br />
 Distributed under the GNU General Public License.
 </p>
 

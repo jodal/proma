@@ -1,4 +1,4 @@
-ProMA - ProFTPd MySQL Admin
+ProMA (ProFTPd MySQL Admin)
 ===========================
 $Id$
 
@@ -11,8 +11,8 @@ storing users in a MySQL database.
 CREDITS
 -------
 ProMA is written entirely by Stein Magnus Jodal (stein.magnus@jodal.no).
-I would also like to give some credits to all the people behind
-ProFTPd, mod_sql and MySQL for their effort for the Open Source community.
+I would also like to give some credit to all the people behind
+ProFTPd and MySQL for their effort.
 
 
 REQUIREMENTS
@@ -42,7 +42,7 @@ Read 'UPGRADE' for upgrade instructions.
 
 LICENSE
 -------
-ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
 ProMA comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under the terms of the GNU General Public License.

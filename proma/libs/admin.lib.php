@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -11,60 +11,10 @@
  * $Id$
  */
 
-function list_new_users() {
-// Prints a list of new not yet approved users, together with 'Add', 'Change' and 'Delete' links 
-
-  global $users_userid, $users_name, $users_mail, $table_newusers;
-
-  print "<h3>New users</h3>\n\n";
-
-  $query = "SELECT
-              $users_userid,
-              $users_name,
-              $users_mail
-            FROM
-              $table_newusers
-            ORDER BY
-              $users_userid ASC";
-  $result = mysql_query($query) or die("Database query failed.");
-  $num_rows = mysql_num_rows($result);
-
-  if ($num_rows > 0) {
-    print "<table>\n";
-    print "  <tr>\n";
-    print "    <th class=\"thh\">Userid</th>\n";
-    print "    <th class=\"thh\">Name</th>\n";
-    print "    <th class=\"thh\">Mail</th>\n";
-    print "    <th colspan=\"2\" class=\"thh\">Action</th>\n";
-    print "  </tr>\n";
-
-    while ($row = mysql_fetch_array($result)) {
-      $userid = stripslashes($row[0]);
-      $name   = stripslashes($row[1]);
-      $mail   = stripslashes($row[2]);
-
-      print "  <tr>\n";
-      print "    <td>$userid</td>\n";
-      print "    <td>$name</td>\n";
-      print "    <td><a href=\"mailto:$mail\">$mail</a></td>\n";
-      print "    <td><a href=\"?page=admin&amp;action=accept&amp;id=$userid\">Accept</a></td>\n";
-      print "    <td><a href=\"?page=admin&amp;action=delete_new&amp;id=$userid\">Delete</a></td>\n";
-      print "  </tr>\n\n";
-    }
-
-    print "</table>\n\n";
-  } else {
-    print "<p>No new users.</p>";
-  }
-
-}
-
 function list_users() {
-// Prints a list of existing users, with 'Change' and 'Delete'-links, and a link to toggle the admin status
+// Prints a list of users
 
-  global $users_userid, $users_name, $users_mail, $users_note, $users_count, $users_admin, $table_users;
-
-  print "<h3>Users</h3>\n\n";
+  global $users_userid, $users_name, $users_mail, $users_note, $users_count, $users_admin, $users_closed, $table_users;
 
   $query = "SELECT
               $users_userid,
@@ -72,7 +22,8 @@ function list_users() {
               $users_mail,
               $users_note,
               $users_count,
-              $users_admin
+              $users_admin,
+              $users_closed
             FROM
               $table_users
             ORDER BY
@@ -84,8 +35,10 @@ function list_users() {
   if ($num_rows > 0) {
     print "<table>\n";
     print "  <tr>\n";
+    print "   <th class=\"thh\">Legend</th>\n";
     print "   <td class=\"admin\">Admin</td>\n";
-    print "   <td class=\"hasnote\">Has note</td>\n";
+    print "   <td class=\"closed\">New/Closed</td>\n";
+    print "   <td class=\"note\">Note</td>\n";
     print "  </tr>\n";
     print "</table>\n\n";
 
@@ -93,11 +46,11 @@ function list_users() {
 
     print "<table>\n";
     print "  <tr>\n";
-    print "    <th class=\"thh\">Userid</th>\n";
+    print "    <th class=\"thh\">Username</th>\n";
     print "    <th class=\"thh\">Name</th>\n";
     print "    <th class=\"thh\">Mail</th>\n";
     print "    <th class=\"thh\">Logins</th>\n";
-    print "    <th class=\"thh\" colspan=\"2\">Action</th>\n";
+    print "    <th class=\"thh\" colspan=\"3\">Action</th>\n";
     print "  </tr>\n\n";
 
     while ($row = mysql_fetch_array($result)) {
@@ -107,11 +60,14 @@ function list_users() {
       $note   = !empty($row[3]);
       $count  = stripslashes($row[4]);
       $admin  = $row[5];
+      $closed = $row[6];
 
-      if ($admin == 1)
+      if ($note == 1)
+        print "  <tr class=\"note\">\n";
+      elseif ($admin == 1)
         print "  <tr class=\"admin\">\n";
-      elseif ($note == 1)
-        print "  <tr class=\"hasnote\">\n";
+      elseif ($closed == 1)
+        print "  <tr class=\"closed\">\n";
       else
         print "  <tr>\n";
 
@@ -120,6 +76,10 @@ function list_users() {
       print "    <td><a href=\"mailto:$mail\">$mail</a></td>\n";
       print "    <td align=\"right\">$count</td>\n";
       print "    <td><a href=\"?page=admin&amp;action=change&amp;id=$userid\">Change</a></td>\n";
+      if ($closed == 1)
+        print "    <td><a href=\"?page=admin&amp;action=open&amp;id=$userid\">Open</a></td>\n";
+      else
+        print "    <td><a href=\"?page=admin&amp;action=close&amp;id=$userid\">Close</a></td>\n";
       print "    <td><a href=\"?page=admin&amp;action=delete&amp;id=$userid\">Delete</a></td>\n";
       print "  </tr>\n\n";
     }
@@ -130,77 +90,10 @@ function list_users() {
   }
 }
 
-function accept($userid) {
-// Moves users from the 'newusers' table to the 'users' table so they can access the FTP server
-
-  global $users_userid, $users_name, $users_mail, $users_uid, $users_uid_default, $users_gid, $users_gid_default, $users_passwd, $users_shell, $users_shell_default, $users_homedir, $users_homedir_default, $users_count, $users_admin, $table_users, $table_newusers;
-
-  print "<p>\n";
-
-  $query = "SELECT
-              $users_userid,
-              $users_name,
-              $users_mail,
-              $users_passwd
-            FROM
-              $table_newusers
-            WHERE
-              $users_userid = '$userid'";
-  $result = mysql_query($query) or die("Database query failed.");
-  $num_rows = mysql_num_rows($result);
-
-  if ($num_rows) {
-    $row = mysql_fetch_array($result);
-    $name   = $row[1];
-    $mail   = $row[2];
-    $passwd = $row[3];
-  } else {
-    print "Select user from new users failed.\n";
-    die();
-  }
-
-  $query = "INSERT INTO
-              $table_users
-            SET
-              $users_userid  = '$userid',
-              $users_name    = '$name',
-              $users_mail    = '$mail',
-              $users_uid     = '$users_uid_default',
-              $users_gid     = '$users_gid_default',
-              $users_passwd  = '$passwd',
-              $users_shell   = '$users_shell_default',
-              $users_homedir = '$users_homedir_default',
-              $users_count   = 0,
-              $users_admin   = 0";
-  $result = mysql_query($query) or die("Database query failed.");
-  $num_rows = mysql_affected_rows();
-
-  if (!$num_rows) {
-    print "Insert user into users table failed.\n";
-    die();
-  }
-
-  $query = "DELETE FROM
-              $table_newusers
-            WHERE
-              $users_userid = '$userid'";
-  $result = mysql_query($query) or die("Database query failed.");
-  $num_rows = mysql_affected_rows();
-
-  if (!$num_rows) {
-    print "Delete user from new users failed.\n";
-    die(); 
-  }
-
-  print "The user has been accepted and the account is now active.\n";
-
-  print "</p>\n";
-}
-
 function change($userid) {
 // Change user details
 
-  global $HTTP_POST_VARS, $link, $table_users, $users_userid, $users_name, $users_mail, $users_passwd, $users_note, $users_count, $users_admin;
+  global $HTTP_POST_VARS, $link, $table_users, $users_userid, $users_name, $users_mail, $users_passwd, $users_note, $users_count, $users_admin, $users_closed;
 
   if ($HTTP_POST_VARS["submit"]) {
   // The change form is submitted and should be processed
@@ -215,6 +108,10 @@ function change($userid) {
       $new_admin = 1;
     else
       $new_admin = 0;
+    if ($HTTP_POST_VARS[closed] == "on")
+      closed($userid, 1);
+    else
+      closed($userid, 0);
 
     if ($new_userid == "" || $new_passwd1 != $new_passwd2) {
       print "<p>Old userid or password is empty, or new passwords are not identical. <a href=\"?page=admin&amp;action=change&amp;id=$userid\">Try again</a></p>\n";
@@ -246,7 +143,8 @@ function change($userid) {
                 $users_mail,
                 $users_note,
                 $users_count,
-                $users_admin
+                $users_admin,
+                $users_closed
               FROM
                 $table_users
               WHERE
@@ -254,14 +152,17 @@ function change($userid) {
     $result = mysql_query($query) or die("Database query failed.");
     $row = mysql_fetch_array($result);
 
-    $name  = stripslashes($row[0]);
-    $mail  = stripslashes($row[1]);
-    $note  = stripslashes($row[2]);
-    $count = $row[3];
-    $admin = $row[4];
+    $name   = stripslashes($row[0]);
+    $mail   = stripslashes($row[1]);
+    $note   = stripslashes($row[2]);
+    $count  = $row[3];
+    $admin  = $row[4];
+    $closed = $row[5];
 
     if ($admin)
       $admin_s = "checked=\"checked\"";
+    if ($closed)
+      $closed_s = "checked=\"checked\"";
 
 ?>
 
@@ -276,6 +177,7 @@ function change($userid) {
   <tr><th class="thv">Note</th>           <td><textarea name="note" cols="60" rows="6"><?php print $note; ?></textarea></td></tr>
   <tr><th class="thv">Logins</th>         <td><?php print $count; ?></td></tr>
   <tr><th class="thv">Admin</th>          <td><input type="checkbox" name="admin" <?php print $admin_s; ?> /></td></tr>
+  <tr><th class="thv">Closed</th>         <td><input type="checkbox" name="closed" <?php print $closed_s; ?> /></td></tr>
   <tr><th></th>                           <td><input type="submit" name="submit" value="Change" /></td></tr>
 </table>
 
@@ -285,22 +187,60 @@ function change($userid) {
   }
 }
 
-function delete($userid, $table) {
-// Deletes users, both from 'users' and 'newusers'
-// Also asks for confirmation 
+function closed($userid, $closed) {
+// Opens og closes an account
 
-  global $HTTP_POST_VARS, $users_userid, $table_users, $table_newusers;
+  global $link, $table_users, $users_userid, $users_mail, $users_passwd, $users_closed, $info_host, $mail_from, $mail_notify_account_open;
+
+  $query = "SELECT
+              $users_mail,
+              $users_passwd
+            FROM
+              $table_users
+            WHERE
+              $users_userid = '$userid'";
+  $result = mysql_query($query) or die("Database query failed.");
+  $row = mysql_fetch_array($result);
+
+  $mail = stripslashes($row[0]);
+  $newpasswd = rot13($row[1]);
+
+  $query = "UPDATE
+              $table_users
+            SET
+              $users_passwd = '$newpasswd',
+              $users_closed = $closed
+            WHERE
+              $users_userid = '$userid'";
+  $result = mysql_query($query) or die("Database query failed.");
+
+  if (mysql_affected_rows($link) > 0) {
+    if ($closed)
+      print "<p>The useraccount \"$userid\" was closed.</p>\n";
+    else {
+      print "<p>The useraccount \"$userid\" was opened.</p>\n";
+
+      if ($mail_notify_account_open) {
+        mail($mail,
+          "ProMA - $info_host - Account opened",
+          "Your account at $info_host with username \"$userid\" has been opened.\n\n-- \nProMA at $info_host",
+          "From: $mail_from\n"
+          ."X-Mailer: PHP/" . phpversion());
+      }
+    }
+  }
+}
+
+function delete($userid) {
+// Deletes users after a confirmation 
+
+  global $HTTP_POST_VARS, $table_users, $users_userid;
 
   if ($HTTP_POST_VARS[delete] == "Yes") {
   // Delete the user if confirmed
 
-    if ($table == "new")
-      $table = $table_newusers;
-    else
-      $table = $table_users;
-
     $query = "DELETE FROM
-                $table
+                $table_users
               WHERE
                 $users_userid = '$userid'";
     $result = mysql_query($query) or die("Failed to query database.");
@@ -315,14 +255,9 @@ function delete($userid, $table) {
   } else {
   // Print request for confirmation
 
-    if ($table == "new")
-      $action = "delete_new";
-    else
-      $action = "delete";
-
     print "<p>Do you want to delete the user \"$userid\"?</p>\n";
 
-    print "<form action=\"?page=admin&amp;action=$action&amp;id=$userid\" method=\"post\">
+    print "<form action=\"?page=admin&amp;action=delete&amp;id=$userid\" method=\"post\">
 <input type=\"submit\" name=\"delete\" value=\"Yes\" />
 <input type=\"submit\" name=\"delete\" value=\"No\" />
 </form>\n";

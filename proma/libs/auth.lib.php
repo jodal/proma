@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -12,7 +12,6 @@
  */
 
 function login() {
-
 // Performs the login and the initial creation of the cookie
 
   global $HTTP_POST_VARS, $users_userid, $users_passwd, $users_admin, $table_users;

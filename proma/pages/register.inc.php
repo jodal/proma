@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2003 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -27,21 +27,43 @@ $name     = addslashes($HTTP_POST_VARS[name]);
 $mail     = addslashes($HTTP_POST_VARS[mail]);
 
 if ($userid == "" || $passwd1 == "")
-  print "<p>Userid or password is empty. <a href=\"?page=register\">Try again</a></p>\n";
+  print "<p>Username or password is empty. <a href=\"?page=register\">Try again</a></p>\n";
 
 elseif ($passwd1 != $passwd2)
   print "<p>The passwords are not identical. <a href=\"?page=register\">Try again</a></p>\n";
 
 else {
-  $query = "INSERT INTO
-              $table_newusers
-            SET
-              $users_userid  = '$userid',
-              $users_name    = '$name',
-              $users_mail    = '$mail',
-              $users_passwd  = PASSWORD('$passwd1')";
+  $query = "SELECT
+              PASSWORD('$passwd1')";
   $result = mysql_query($query) or die("Database query failed.");
-  print "<p>You are registered. When an admin accepts your registration you can connect using the information on the main page.</p>";
+  $enc_passwd = mysql_fetch_array($result);
+  // rot13 on the encrypted password disables access, and can be reversed to
+  // open for access again. A bit dirty, but it works.
+  $rot13_passwd = rot13($enc_passwd[0]);
+
+  $query = "INSERT INTO
+              $table_users                                                                  SET
+              $users_userid  = '$userid',                                                     $users_name    = '$name',
+              $users_mail    = '$mail',
+              $users_uid     = '$users_uid_default',
+              $users_gid     = '$users_gid_default',
+              $users_passwd  = '$rot13_passwd',
+              $users_shell   = '$users_shell_default',
+              $users_homedir = '$users_homedir_default',
+              $users_count   = 0,
+              $users_admin   = 0,
+              $users_closed  = 1";
+  $result = mysql_query($query) or die("Database query failed.");
+
+  if ($mail_notify_new_user) {
+    mail(admin_mail(),
+      "ProMA - $info_host - New user",
+      "A new user has registered and are waiting for your authorization.\n\nUsername: $userid\nName: $name\nMail: $mail\n\n-- \nProMA at $info_host",
+      "From: $mail_from\n"
+      ."X-Mailer: PHP/" . phpversion());
+  }
+
+  print "<p>You are registered. When an admin accepts your registration, you can connect using the information on the main page.</p>";
 }
 
 } else {
@@ -56,7 +78,7 @@ if ($policy != "") {
 <input type="hidden" name="submit" value="1" />
 
 <table>
-  <tr><th class="thv">Userid</th>   <td><input type="text" name="userid" /> Your login</td></tr>
+  <tr><th class="thv">Username</th>   <td><input type="text" name="userid" /> Your login</td></tr>
   <tr><th class="thv">Name</th>     <td><input type="text" name="name" /> Your full real name</td></tr>
   <tr><th class="thv">Mail</th>     <td><input type="text" name="mail" /> Your mail adress</td></tr>
   <tr><th class="thv">Password</th> <td><input type="password" name="passwd1" /></td></tr>
