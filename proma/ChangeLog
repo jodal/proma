@@ -2,6 +2,16 @@
 # Copyright (C) 2002-2003 Stein Magnus Jodal. Distributed under the GPL.
 # $Id$
 
+* 2004-07-08 Stein Magnus Jodal <stein.magnus@jodal.no>
+  Added support for setting homedir per user.
+  Fixed priority on userlist colors.
+
+* 2004-06-23 Stein Magnus Jodal <stein.magnus@jodal.no>
+  Fixed typo in the new user mail.
+
+* 2004-06-12 Stein Magnus Jodal <stein.magnus@jodal.no>
+  Fixed typo in change.inc.php.
+
 * 2004-02-13 Stein Magnus Jodal <stein.magnus@jodal.no>
   Added check for 'config.inc.php' in 'index.php'.
 
