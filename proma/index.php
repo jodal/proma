@@ -43,7 +43,7 @@ if ($page == "admin") {
   if ($HTTP_POST_VARS["login"] == 1) {
     $runlevel = login();
     if ($runlevel == 0)
-      $message = "Wrong username or password.";
+      $message = "Wrong username or password, or you're not an admin.";
   }
 
   // If logout-link is clicked
@@ -98,7 +98,7 @@ else
 <hr />
 
 <p class="bottom">
-<a href="http://freshmeat.net/projects/proma">ProMA - ProFTPd MySQL Admin 0.7.1</a><br />
+<a href="http://freshmeat.net/projects/proma">ProMA - ProFTPd MySQL Admin 0.7.2</a><br />
 Copyright &copy; 2002 <a href="http://www.jodal.no/">Stein Magnus Jodal</a>. All rights reserved.<br />
 Distributed under the GNU General Public License.
 </p>
