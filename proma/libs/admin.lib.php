@@ -200,7 +200,7 @@ function accept($userid) {
 function change($userid) {
 // Change user details
 
-  global $HTTP_POST_VARS, $link, $table_users, $users_userid, $users_name, $users_mail, $users_passwd, $users_note, $users_admin;
+  global $HTTP_POST_VARS, $link, $table_users, $users_userid, $users_name, $users_mail, $users_passwd, $users_note, $users_count, $users_admin;
 
   if ($HTTP_POST_VARS["submit"]) {
   // The change form is submitted and should be processed
