@@ -245,6 +245,7 @@ function change($userid) {
                 $users_name,
                 $users_mail,
                 $users_note,
+                $users_count,
                 $users_admin
               FROM
                 $table_users
@@ -256,7 +257,8 @@ function change($userid) {
     $name  = stripslashes($row[0]);
     $mail  = stripslashes($row[1]);
     $note  = stripslashes($row[2]);
-    $admin = $row[3];
+    $count = $row[3];
+    $admin = $row[4];
 
     if ($admin)
       $admin_s = "checked=\"checked\"";
@@ -271,7 +273,8 @@ function change($userid) {
   <tr><th class="thv">Mail</th>           <td><input type="text" name="mail" value="<?php print $mail; ?>" /></td></tr>
   <tr><th class="thv">New password</th>   <td><input type="password" name="new_passwd1" /> Leave blank if you wont change</td></tr>
   <tr><th class="thv">New password</th>   <td><input type="password" name="new_passwd2" /> Again</td></tr>
-  <tr><th clasS="thv">Note</th>           <td><textarea name="note" cols="60" rows="6"><?php print $note; ?></textarea></td></tr>
+  <tr><th class="thv">Note</th>           <td><textarea name="note" cols="60" rows="6"><?php print $note; ?></textarea></td></tr>
+  <tr><th class="thv">Logins</th>         <td><?php print $count; ?></td></tr>
   <tr><th class="thv">Admin</th>          <td><input type="checkbox" name="admin" <?php print $admin_s; ?> /></td></tr>
   <tr><th></th>                           <td><input type="submit" name="submit" value="Change" /></td></tr>
 </table>
