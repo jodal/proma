@@ -58,7 +58,7 @@ else {
   if ($mail_notify_new_user) {
     mail(admin_mail(),
       "ProMA - $info_host - New user",
-      "A new user has registered and are waiting for your authorization.\n\nUsername: $userid\nName: $name\nMail: $mail\n\n-- \nProMA at $info_host",
+      "A new user has registered and is waiting for your authorization.\n\nUsername: $userid\nName: $name\nMail: $mail\n\n-- \nProMA at $info_host",
       "From: $mail_from\n"
       ."X-Mailer: PHP/" . phpversion());
   }
