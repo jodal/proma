@@ -2,6 +2,10 @@
 # Copyright (C) 2002 Stein Magnus Jodal. Distributed under the GPL.
 # $Id$
 
+* 2002-07-22 Stein Magnus Jodal <stein.magnus@jodal.no>
+
+  Rewrote the installation instructions.
+
 * 2002-07-02 Stein Magnus Jodal <stein.magnus@jodal.no>
 
   Added number of logins to the 'change'-page.
