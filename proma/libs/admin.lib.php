@@ -288,11 +288,11 @@ function closed($userid, $closed)
 		if ($closed) {
 			print "<h3>Close Account</h3>\n\n";
 
-			print "<p>The useraccount \"$userid\" was closed.</p>\n";
+			print "<p>The user account \"$userid\" was closed.</p>\n\n";
 		} else {
 			print "<h3>Open Account</h3>\n\n";
 
-			print "<p>The useraccount \"$userid\" was opened.</p>\n";
+			print "<p>The user account \"$userid\" was opened.</p>\n\n";
 
 			if ($mail_notify_account_open) {
 				mail($mail,
