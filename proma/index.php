@@ -33,16 +33,25 @@ if ($page == "admin") {
   $runlevel = 0;
 
   // If cookie is set
-  if ($HTTP_COOKIE_VARS["proma"] != "" && $HTTP_GET_VARS["action"] != "logout")
+  if ($HTTP_COOKIE_VARS["proma"] != "" && $HTTP_GET_VARS["action"] != "logout") {
     $runlevel = check_cookie();
+    if ($runlevel == 0)
+      $message = "The session has timed out.";
+  }
 
   // If login info is entered
-  if ($HTTP_POST_VARS["login"] == 1)
+  if ($HTTP_POST_VARS["login"] == 1) {
     $runlevel = login();
+    if ($runlevel == 0)
+      $message = "Wrong username or password.";
+  }
 
   // If logout-link is clicked
-  if ($HTTP_GET_VARS["action"] == "logout")
+  if ($HTTP_GET_VARS["action"] == "logout") {
     $runlevel = logout();
+    if ($runlevel == 0)
+      $message = "Logged out.";
+  }
 
 }
 

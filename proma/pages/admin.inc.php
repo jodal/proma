@@ -64,5 +64,7 @@ if ($runlevel == 1) {
 </form>
 
 <?php
+  if (!empty($message))
+    print "<p class=\"message\">$message</p>\n";
 }
 ?>

@@ -63,3 +63,9 @@ a:hover {
   background: #DDDDDD;
   color: black;
 }
+
+.message {
+  background: transparent;
+  color: red;
+  font-weight: bolder;
+}
