@@ -11,8 +11,13 @@
  * $Id$
  */
 
-// Config
-require("config.inc.php");
+// Configuration
+if (file_exists("config.inc.php"))
+  require("config.inc.php");
+else
+  die("Please copy 'config.inc.php-example' to 'config.inc.php' and edit it to fit your setup.");
+
+// Libraries
 require("libs/auth.lib.php");
 require("libs/admin.lib.php");
 require("libs/common.lib.php");
