@@ -1,0 +1,28 @@
+# ChangeLog for ProMA (ProFTPd MySQL Admin)
+# Copyright (C) 2002 Stein Magnus Jodal. Distributed under the GPL.
+# $Id$
+
+* 2002-04-24 Stein Magnus Jodal <stein.magnus@jodal.no>
+
+  Rewrote 'make admin' and 'remove admin' as a part of the change function.
+  Changed the color scheme a bit.
+  Changed cookie-format.
+  Fixed a bug in the logout procedure.
+  Added 'note' field to the users.
+  Released version 0.7.
+
+* 2002-04-07 Stein Magnus Jodal <stein.magnus@jodal.no>
+
+  Gave the install instructions a walk-over and fixed some bugs.
+  Improved output from the 'accept user' function.
+  New function for the admin to change user settings and passwords.
+  Moved parts of admin.lib.php to the new file auth.lib.php.
+
+* 2002-03-17 Stein Magnus Jodal <stein.magnus@jodal.no>
+
+  Divided the information table into two tables: information and statistics.
+  Added totalt number of logins to the stats at the main page.
+
+* 2002-02-02 Stein Magnus Jodal <stein.magnus@jodal.no>
+
+  Released version 0.6. The first public release.

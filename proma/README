@@ -1,0 +1,52 @@
+ProMA - ProFTPd MySQL Admin
+===========================
+$Id$
+
+ABOUT
+-----
+ProMA is a PHP4 based system for administrating a ProFTPd server
+storing users in a MySQL database.
+
+
+CREDITS
+-------
+ProMA is written entirely by Stein Magnus Jodal (stein.magnus@jodal.no).
+I would also like to give some credits to all the people behind
+ProFTPd, mod_sql and MySQL for their effort for the Open Source community.
+
+
+REQUIREMENTS
+------------
+- Webserver, with
+- PHP4, with
+- MySQL support
+- ProFTPd server with mod_sql and mod_sql_mysql 4.xx configured
+  to find users in a
+- MySQL database
+
+
+CHANGES
+-------
+Read 'ChangeLog' for details on changes since last release.
+
+
+INSTALL
+-------
+Read 'INSTALL' for installation instructions.
+
+
+UPGRADING
+---------
+Read 'UPGRADE' for upgrade instructions.
+
+
+LICENSE
+-------
+ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+ProMA comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to redistribute it
+under the terms of the GNU General Public License.
+Read 'COPYING' for further information.
+
+
+EOF

@@ -1,0 +1,65 @@
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002 Stein Magnus Jodal
+ * ProMA comes with ABSOLUTELY NO WARRANTY.
+ * This is free software, and you are welcome to redistribute it
+ * under the terms of the GNU General Public License.
+ * Read 'COPYING' for further information.
+ */
+
+/* ProMA Stylesheet
+ * $Id$
+ */
+
+/* Elements */
+
+body {
+  background: white;
+  color: black;
+  font-family: Arial, Sans-serif;
+}
+
+img {
+  border: none;
+}
+
+hr {
+  height: 1px;
+}
+
+a {
+  background: transparent;
+  color: #483D8B;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Classes */
+
+.thv {
+  background: #E6E6FA;
+  color: black;
+  : 3px;
+  text-align: right;
+  vertical-align: top;
+}
+
+.thh {
+  background: #E6E6FA;
+  color: black;
+  text-align: left;
+}
+
+.bottom {
+  font-size: xx-small;
+}
+
+.admin {
+  background: #AFDCAF;
+  color: black;
+}
+
+.hasnote {
+  background: #DDDDDD;
+  color: black;
+}

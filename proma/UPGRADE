@@ -1,0 +1,32 @@
+ProMA - ProFTPd MySQL Admin
+===========================
+$Id$
+
+UPGRADING
+=========
+
+It is always recommended to move the old installation to another
+location and install from scratch. That way you get rid of old
+deprecated files. Sometimes you can easily use the old configuration.
+Please read the instructions below for further information about
+configuration changes.
+
+0.6 to 0.7
+----------
+The new field 'note' is needed in the database.
+It can be added with this SQL query:
+
+ALTER TABLE users ADD note text NULL default '' AFTER homedir;
+
+Remember to replace 'users' and 'homedir' with your names if they are
+changed from the default.
+
+The new field requires a new line in config.inc.php. Please insert
+the following between line 40 and 41.
+
+$users_note            = "note";
+
+There are no other changes to the config file.
+
+
+EOF

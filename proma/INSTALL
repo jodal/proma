@@ -1,0 +1,126 @@
+ProMA - ProFTPd MySQL Admin
+===========================
+$Id$
+
+INSTALL
+=======
+
+ProMA in 1, 2, 3 (and 4)
+
+CONTENTS
+--------
+1.   ProFTPd and MySQL
+2.   Database setup
+2.1. 'users' table
+2.2. 'newusers' table
+2.3. Make an admin
+3.   ProMA configuration
+4.   Enjoy
+
+
+1. PROFTPD AND MYSQL
+--------------------
+Install ProFTPd and MySQL as described in their respective documentation.
+
+MySQL -> http://www.mysql.com/
+ProFTPd -> http://www.proftpd.org/
+mod_sql for ProFTPd -> http://www.lastditcheffort.org/~aah/proftpd/mod_sql/
+
+The SQL-part from my proftpd.conf:
+
+SQLConnectInfo        user@127.0.0.1 proftpd_db password
+SQLAuthenticate       users
+SQLAuthTypes          backend
+SQLDefaultHomedir     /somefancyhomedir
+SQLUserInfo           users userid passwd uid gid homedir shell
+SQLGroupInfo          groups groupname gid members
+SQLLog                PASS updatecount
+SQLNamedQuery         updatecount UPDATE "count=count+1 WHERE userid='%u'" users
+
+The two last lines are needed for the login counter.
+Check the mod_sql documentation or
+http://www.proftpd.org/docs/directives/linked/config_ref_mod_sql.html
+for further information.
+
+
+2. DATABASE SETUP
+-----------------
+Modify the users table and create the newusers table.
+
+2.1 'users' table
+-----------------
+mod_sql's README recommends this setup:
+
+COLUMN          TYPE    R    DUP    NULL?     USE
+---------------------------------------------------------
+userid          text    Y     N       N       user's login id
+passwd          text    Y     Y       N       user's password
+uid             num     N     N       Y       user's uid
+gid             num     N     Y       Y       user's gid
+homedir         text    N     Y       Y       user's homedir
+shell           text    N     Y       Y       user's shell
+
+ProMA uses these column names as default, so if you use this setup you don't
+have to change that in the config. Additionally ProMA needs these columns in
+the user table:
+
+COLUMN          TYPE    R    DUP    NULL?     USE
+---------------------------------------------------------
+name            text    Y     Y       N       user's full real name
+mail            text    Y     Y       N       user's mail address
+note            text    N     Y       Y       note about user
+count           num     N     Y       Y       user's login counter
+admin           num     N     Y       Y       user's admin status
+
+You can create this table with this query:
+
+CREATE TABLE newusers (
+  userid varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  mail varchar(255) NOT NULL,
+  uid int(11) NULL default '65534',
+  gid int(11) NULL default '65534',
+  passwd varchar(255) NOT NULL,
+  shell varchar(255) NOT NULL default '/bin/nonexistent',
+  homedir varchar(255) NOT NULL default '/somefancyhomedir',
+  note text() NULL default '',
+  count int(11) NOT NULL default 0,
+  admin int(1) NOT NULL default 0
+);
+
+
+2.2 'newusers' table
+--------------------
+Additionally ProMA uses a 'newuser' table for users who have not yet been
+approved by an admin. It's like a small 'users' table.
+
+CREATE TABLE users (
+  userid varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  mail varchar(255) NOT NULL,
+  passwd varchar(255) NOT NULL
+);
+
+
+2.3 Make an admin
+-----------------
+You need to modify the 'users' table so that you have at least one admin:
+
+UPDATE user SET admin = 1 WHERE userid = 'my_own_account';
+
+Admin status is required for using the admin section of ProMA.
+You can add more admins once you're logged into the admin section.
+
+
+3. PROMA CONFIGURATION
+----------------------
+Edit 'config.inc.php' to fit your setup and needs.
+There are instructions in the configuration file.
+
+
+4. ENJOY
+--------
+Point your browser at the URL you installed ProMA at and enjoy.
+
+
+EOF
