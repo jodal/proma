@@ -2,6 +2,14 @@
 # Copyright (C) 2002 Stein Magnus Jodal. Distributed under the GPL.
 # $Id$
 
+* 2002-07-02 Stein Magnus Jodal <stein.magnus@jodal.no>
+
+  Added number of logins to the 'change'-page.
+
+* 2002-06-21 Stein Magnus Jodal <stein.magnus@jodal.no>
+
+  Started using CVS in the development.
+
 * 2002-04-24 Stein Magnus Jodal <stein.magnus@jodal.no>
 
   Rewrote 'make admin' and 'remove admin' as a part of the change function.
