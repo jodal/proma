@@ -4,13 +4,14 @@ $Id$
 
 ABOUT
 -----
-ProMA is a PHP4 based system for administrating a ProFTPd server
+ProMA is a PHP based system for administrating a ProFTPd server
 storing users in a MySQL database.
 
 
 CREDITS
 -------
-ProMA is written entirely by Stein Magnus Jodal (stein.magnus@jodal.no).
+ProMA is written by Stein Magnus Jodal (stein.magnus@jodal.no).
+Thanks goes out to the bug reporters, which are named in ChangeLog.
 I would also like to give some credit to all the people behind
 ProFTPd and MySQL for their effort.
 
