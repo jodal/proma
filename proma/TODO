@@ -7,4 +7,5 @@ TODO
 
 * Mail confirmations and reminders.
 * Support for quotas ?
-* Much more which I can't remember at the moment. 
+* Merge 'users' and 'newusers' if mod_sql gets the feature I requested.
+* And of course something more which I can't remember at the moment. 
