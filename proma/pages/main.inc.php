@@ -21,7 +21,9 @@ $query = "SELECT
 		COUNT($users_userid) AS users,
 		SUM($users_count) AS logins
 	FROM
-		$table_users";
+		$table_users
+	WHERE
+		$users_closed != 1";
 $result = mysql_query($query) or die("Failed to query database.");
 
 if ($result) {
