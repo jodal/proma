@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2004 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2007 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -15,10 +15,10 @@ function login()
 {
 // Performs the login and the initial creation of the cookie
 
-	global $HTTP_POST_VARS, $users_userid, $users_passwd, $users_admin, $table_users;
+	global $_POST, $users_userid, $users_passwd, $users_admin, $table_users;
 
-	$userid = addslashes($HTTP_POST_VARS[userid]);
-	$passwd = addslashes($HTTP_POST_VARS[passwd]);
+	$userid = addslashes($_POST["userid"]);
+	$passwd = addslashes($_POST["passwd"]);
 
 	$query = "SELECT
 			$users_userid,
@@ -32,8 +32,8 @@ function login()
 	$result = mysql_query($query) or die("Failed to query database.");
 	$row = mysql_fetch_assoc($result);
 
-	$cookie_array[userid] = $row[$users_userid];
-	$cookie_array[password] = $row[$users_passwd];
+	$cookie_array["userid"] = $row[$users_userid];
+	$cookie_array["password"] = $row[$users_passwd];
 
 	$cookie_value = serialize($cookie_array);
 	setcookie("proma", $cookie_value, time()+3600);
@@ -57,12 +57,12 @@ function check_cookie()
 // Checks if the cookies data matches the database and the user still is admin
 // Renews the cookie
 
-	global $HTTP_COOKIE_VARS, $users_userid, $users_passwd, $users_admin, $table_users;
+	global $_COOKIE, $users_userid, $users_passwd, $users_admin, $table_users;
 
-	$cookie_value = stripslashes($HTTP_COOKIE_VARS[proma]);
+	$cookie_value = stripslashes($_COOKIE["proma"]);
 	$cookie_array = unserialize($cookie_value);
 	setcookie("proma", "", time()-3600);
-	
+
 	$query = "SELECT
 			$users_userid
 		FROM

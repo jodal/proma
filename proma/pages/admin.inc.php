@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2004 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2007 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -25,15 +25,12 @@ if ($runlevel == 1) {
 <a href=\"?page=admin&amp;action=logout\">Logout</a>
 </p>\n";
 
-	$action = addslashes($HTTP_GET_VARS[action]);
-	$id = addslashes($HTTP_GET_VARS[id]);
+	$action = addslashes($_GET["action"]);
+	$id = addslashes($_GET["id"]);
 
 	// These functions are included from libs/admin.lib.php
 
 	switch ($action) {
-		case "accept":
-			accept($id);
-			break;
 		case "change":
 			change($id);
 			break;

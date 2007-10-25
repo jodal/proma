@@ -1,6 +1,5 @@
 <?php
-
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2004 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2007 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -23,29 +22,12 @@ require("libs/auth.lib.php");
 require("libs/admin.lib.php");
 require("libs/common.lib.php");
 
-// PEAR
-/*
-$required_files_path = $DOCUMENT_ROOT . "/libs/pear";
-ini_set("include_path", ini_get("include_path") . ":" . $required_files_path);
-require_once("DB.php");
-*/
-
 // Database
 $link = mysql_connect($db_host, $db_user, $db_password);
 mysql_select_db($db_name);
 
-// Database
-/*
-$dsn = "$db_type://$db_user:$db_pass@$db_host/$db_name";
-$db =& DB::connect($dsn, true);
-
-if (DB::isError($db)) {
-        die($db->getMessage());
-}
-*/
-
 // Prepare subpage
-$page = $HTTP_GET_VARS["page"];
+$page = $_GET["page"];
 
 if (empty($page)) {
 	$page = "main";
@@ -58,7 +40,7 @@ if ($page == "admin") {
 	$runlevel = 0;
 
 	// If cookie is set
-	if ($HTTP_COOKIE_VARS["proma"] != "" && $HTTP_GET_VARS["action"] != "logout") {
+	if ($_COOKIE["proma"] != "" && $_GET["action"] != "logout") {
 		$runlevel = check_cookie();
 
 		if ($runlevel == 0) {
@@ -67,7 +49,7 @@ if ($page == "admin") {
 	}
 
 	// If login info is entered
-	if (!empty($HTTP_POST_VARS["login"])) {
+	if (!empty($_POST["login"])) {
 		$runlevel = login();
 
 		if ($runlevel == 0) {
@@ -76,7 +58,7 @@ if ($page == "admin") {
 	}
 
 	// If logout-link is clicked
-	if ($HTTP_GET_VARS["action"] == "logout") {
+	if ($_GET["action"] == "logout") {
 		$runlevel = logout();
 
 		if ($runlevel == 0) {
@@ -129,8 +111,8 @@ if (file_exists($filename)) {
 ?>
 
 <p class="bottom">
-<a href="http://proma.sourceforge.net/">ProMA 0.8.2</a> &#149;
-Copyright &copy; 2002-2004 <a href="http://www.jodal.no/">Stein Magnus Jodal</a>. All rights reserved. &#149;
+<a href="http://proma.sourceforge.net/">ProMA 0.8.3</a> &#149;
+Copyright &copy; 2002-2007 <a href="http://www.jodal.no/">Stein Magnus Jodal</a>. All rights reserved. &#149;
 Distributed under the GNU General Public License.
 </p>
 

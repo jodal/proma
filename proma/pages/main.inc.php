@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2004 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2007 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -28,8 +28,8 @@ $result = mysql_query($query) or die("Failed to query database.");
 
 if ($result) {
 	$row = mysql_fetch_assoc($result);
-	$num_users = $row[users];
-	$num_logins = $row[logins];
+	$num_users = $row["users"];
+	$num_logins = $row["logins"];
 }
 
 if (!$num_users > 0) {

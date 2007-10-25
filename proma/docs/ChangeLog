@@ -1,6 +1,16 @@
 # ChangeLog for ProMA (ProFTPd MySQL Admin)
-# Copyright (C) 2002-2004 Stein Magnus Jodal. Distributed under the GPL.
+# Copyright (C) 2002-2007 Stein Magnus Jodal. Distributed under the GPL.
 # $Id$
+
+* 2007-10-25 Stein Magnus Jodal <stein.magnus@jodal.no>
+  Changed statistics to just count active accounts. In CVS since 2004.
+  Replace $HTTP_{GET,POST,COOKIE}_VARS with $_{GET,POST,COOKIE}. Needed to
+    support PHP5. Contributed by Kaspar Lyngsie <k@pacroon.dk>.
+  Add "" around array indexes.
+  Remove unused branch from switch in pages/admin.inc.php..
+  Remove unused PEAR code in index.php.
+  Change copyright from 2002-2004 to 2002-2007.
+  Release 0.8.3.
 
 * 2004-07-26 Stein Magnus Jodal <stein.magnus@jodal.no>
   Reduced text size in lists.

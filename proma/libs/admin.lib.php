@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2004 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2007 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -110,32 +110,32 @@ function change($userid)
 {
 // Change user details
 
-	global $HTTP_POST_VARS, $link, $table_users, $users_userid, $users_name, $users_mail, $users_passwd, $users_homedir, $users_note, $users_count, $users_admin, $users_closed;
+	global $_POST, $link, $table_users, $users_userid, $users_name, $users_mail, $users_passwd, $users_homedir, $users_note, $users_count, $users_admin, $users_closed;
 
 	print "<h3>Change Account</h3>\n\n";
 
-	if ($HTTP_POST_VARS["submit"]) {
+	if ($_POST["submit"]) {
 	// The change form is submitted and should be processed
 
-		$new_userid	= addslashes($HTTP_POST_VARS[userid]);
-		$new_name	= addslashes($HTTP_POST_VARS[name]);
-		$new_mail	= addslashes($HTTP_POST_VARS[mail]);
-		$new_passwd1	= addslashes($HTTP_POST_VARS[new_passwd1]);
-		$new_passwd2	= addslashes($HTTP_POST_VARS[new_passwd2]);
-		$new_homedir	= addslashes($HTTP_POST_VARS[homedir]);
-		$new_note	= addslashes($HTTP_POST_VARS[note]);
+		$new_userid	= addslashes($_POST["userid"]);
+		$new_name	= addslashes($_POST["name"]);
+		$new_mail	= addslashes($_POST["mail"]);
+		$new_passwd1	= addslashes($_POST["new_passwd1"]);
+		$new_passwd2	= addslashes($_POST["new_passwd2"]);
+		$new_homedir	= addslashes($_POST["homedir"]);
+		$new_note	= addslashes($_POST["note"]);
 
-		if ($HTTP_POST_VARS[admin] == "on") {
+		if ($_POST["admin"] == "on") {
 			$new_admin = 1;
 		}
-		if ($HTTP_POST_VARS[admin] == "off") {
+		if ($_POST["admin"] == "off") {
 			$new_admin = 0;
 		}
 
-		if ($HTTP_POST_VARS[closed] == "on") {
+		if ($_POST["closed"] == "on") {
 			closed($userid, 1);
 		}
-		if ($HTTP_POST_VARS[closed] == "off") {
+		if ($_POST["closed"] == "off") {
 			closed($userid, 0);
 		}
 
@@ -310,11 +310,11 @@ function delete($userid)
 {
 // Deletes users after a confirmation 
 
-	global $HTTP_POST_VARS, $table_users, $users_userid;
+	global $_POST, $table_users, $users_userid;
 
 	print "<h3>Delete Account</h3>\n\n";
 
-	if ($HTTP_POST_VARS[delete] == "Yes") {
+	if ($_POST["delete"] == "Yes") {
 	// Delete the user if confirmed
 
 		$query = "DELETE FROM
@@ -328,7 +328,7 @@ function delete($userid)
 		if ($num_rows) {
 			print "<p>The user \"$userid\" was deleted.</p>\n";
 		}
-	} elseif ($HTTP_POST_VARS[delete] == "No") {
+	} elseif ($_POST["delete"] == "No") {
 	// If the user is not to be deleted
 
 		print "<p>The user \"$userid\" was NOT deleted.</p>\n";

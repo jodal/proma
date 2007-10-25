@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2004 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2007 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -17,14 +17,14 @@
 
 <?php
 
-if (!empty($HTTP_POST_VARS["submit"])) {
+if (!empty($_POST["submit"])) {
 // If the register form is submitted and should be processed
 
-$passwd1	= addslashes($HTTP_POST_VARS[passwd1]);
-$passwd2	= addslashes($HTTP_POST_VARS[passwd2]);
-$userid		= addslashes($HTTP_POST_VARS[userid]);
-$name		= addslashes($HTTP_POST_VARS[name]);
-$mail		= addslashes($HTTP_POST_VARS[mail]);
+$passwd1	= addslashes($_POST["passwd1"]);
+$passwd2	= addslashes($_POST["passwd2"]);
+$userid		= addslashes($_POST["userid"]);
+$name		= addslashes($_POST["name"]);
+$mail		= addslashes($_POST["mail"]);
 
 if ($userid == "" || $passwd1 == "") {
 	print "<p>Username or password is empty. <a href=\"?page=register\">Try again</a></p>\n";
@@ -109,7 +109,7 @@ if (!empty($policy)) {
 	print "<p>$policy</p>\n";
 }
 ?>
-	
+
 <p><input type="submit" name="submit" value="Register" /></p>
 
 </form>

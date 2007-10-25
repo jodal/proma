@@ -1,6 +1,6 @@
 <?php
 
-/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2004 Stein Magnus Jodal
+/* ProMA (ProFTPd MySQL Admin), Copyright (C) 2002-2007 Stein Magnus Jodal
  * ProMA comes with ABSOLUTELY NO WARRANTY.
  * This is free software, and you are welcome to redistribute it
  * under the terms of the GNU General Public License.
@@ -17,19 +17,19 @@
 
 <?php
 
-if (!empty($HTTP_POST_VARS[submit])) {
+if (!empty($_POST["submit"])) {
 // If the change form is submitted and should be processed
 
-$old_userid	= addslashes($HTTP_POST_VARS[old_userid]);
-$old_passwd	= addslashes($HTTP_POST_VARS[old_passwd]);
-$new_userid	= addslashes($HTTP_POST_VARS[new_userid]);
-$new_passwd1	= addslashes($HTTP_POST_VARS[new_passwd1]);
-$new_passwd2	= addslashes($HTTP_POST_VARS[new_passwd2]);
+$old_userid	= addslashes($_POST["old_userid"]);
+$old_passwd	= addslashes($_POST["old_passwd"]);
+$new_userid	= addslashes($_POST["new_userid"]);
+$new_passwd1	= addslashes($_POST["new_passwd1"]);
+$new_passwd2	= addslashes($_POST["new_passwd2"]);
 
 if ($old_userid == "" || $old_passwd == "" || $new_passwd1 != $new_passwd2) {
 	print "<p>Old userid or password is empty, or new passwords are not identical. <a href=\"?page=change\">Try again</a></p>\n";
 } else {
-	
+
 	if ($new_userid == "" && $new_passwd1 != "") {
 		$query = "UPDATE
 				$table_users
