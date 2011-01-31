@@ -45,35 +45,33 @@ Step 2.1: Create/modify ``users`` table
 
 mod_sql's README recommends this setup:
 
---------------  ------  ---  -----  --------  ---------------
+==============  ======  ===  =====  ========  ===============
 COLUMN          TYPE    R    DUP    NULL?     USE
---------------  ------  ---  -----  --------  ---------------
+==============  ======  ===  =====  ========  ===============
 userid          text    Y    N      N         user's login id
 passwd          text    Y    Y      N         user's password
 uid             num     N    N      Y         user's uid
 gid             num     N    Y      Y         user's gid
 homedir         text    N    Y      Y         user's homedir
 shell           text    N    Y      Y         user's shell
---------------  ------  ---  -----  --------  ---------------
+==============  ======  ===  =====  ========  ===============
 
 ProMA uses these column names as default, so if you use this setup you don't
 have to change that in the config. Additionally ProMA needs these columns in
 the user table:
 
---------------  ------  ---  -----  --------  ---------------------
+==============  ======  ===  =====  ========  =====================
 COLUMN          TYPE    R    DUP    NULL?     USE
---------------  ------  ---  -----  --------  ---------------------
+==============  ======  ===  =====  ========  =====================
 name            text    Y    Y      Y         user's full real name
 mail            text    Y    Y      Y         user's mail address
 note            text    N    Y      Y         note about user
 count           num     N    Y      Y         user's login counter
 admin           num     N    Y      Y         user's admin status
 closed          num     N    Y      Y         account closed/open
---------------  ------  ---  -----  --------  ---------------------
+==============  ======  ===  =====  ========  =====================
 
-You can create this table with this query:
-
-.. code:: sql
+You can create this table with this query::
 
     CREATE TABLE users (
       userid varchar(255) NOT NULL UNIQUE,
@@ -95,9 +93,7 @@ Step 2.2: Make an admin user
 ----------------------------
 
 Admin status is required for using the admin section of ProMA.
-Thus, you need at least one initial admin user:
-
-.. code:: sql
+Thus, you need at least one initial admin user::
 
     INSERT INTO users
     SET
@@ -108,9 +104,7 @@ Thus, you need at least one initial admin user:
       admin = 1;
 
 Or, if you already have an existing user you want to upgrade to
-an admin:
-
-.. code:: sql
+an admin::
 
     UPDATE users
     SET admin = 1

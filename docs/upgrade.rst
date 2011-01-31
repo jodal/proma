@@ -12,9 +12,7 @@ configuration changes.
 ==========
 
 - The new field ``closed`` is needed in the database.  It can be added with
-  this SQL query:
-
-  .. code:: sql
+  this SQL query::
 
       ALTER TABLE users ADD closed INT(1) DEFAULT '0' AFTER admin;
 
@@ -29,9 +27,7 @@ configuration changes.
 
       $users_closed          = "closed";
 
-- The table ``newusers`` are no longer used, and can be removed:
-
-  .. code:: sql
+- The table ``newusers`` are no longer used, and can be removed::
 
       DROP TABLE newusers;
 
@@ -49,9 +45,7 @@ configuration changes.
 ==========
 
 The new field ``note`` is needed in the database.  It can be added with this
-SQL query:
-
-.. code:: sql
+SQL query::
 
     ALTER TABLE users ADD note text NULL default '' AFTER homedir;
 
